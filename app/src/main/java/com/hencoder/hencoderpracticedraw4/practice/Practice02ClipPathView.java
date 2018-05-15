@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Point;
@@ -14,11 +15,13 @@ import android.view.View;
 import com.hencoder.hencoderpracticedraw4.R;
 
 public class Practice02ClipPathView extends View {
-    Paint paint = new Paint();
+    Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     Bitmap bitmap;
     Point point1 = new Point(200, 200);
     Point point2 = new Point(600, 200);
-
+    Path path1 = new Path();
+    Path path2 = new Path();
+    int bw, bh;
     public Practice02ClipPathView(Context context) {
         super(context);
     }
@@ -33,13 +36,40 @@ public class Practice02ClipPathView extends View {
 
     {
         bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.maps);
+        bw = bitmap.getWidth();
+        bh = bitmap.getHeight();
+        int cx1 = point1.x + 200;
+        int cy1 = point1.y + 200;
+        path1.addCircle(cx1, cy1, 150, Path.Direction.CW);
+
+        int cx2 = point2.x + 200;
+        int cy2 = point2.y + 200;
+        path2.addCircle(cx2, cy2, 150, Path.Direction.CW);
+        path2.setFillType(Path.FillType.INVERSE_WINDING);
+//        path2.addCircle();
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
+//        Paint paint2 = new Paint();
+//        paint2.setStrokeWidth(10);
+//        canvas.drawPoint(point1.x + bw, point1.y + bh, paint2);
+//        paint2.setColor(Color.RED);
+//        canvas.drawPoint(point1.x + 200, point1.y + 200, paint2);
+
+        canvas.save();
+        canvas.clipPath(path1);
+        paint.setAlpha(0x40);
         canvas.drawBitmap(bitmap, point1.x, point1.y, paint);
+        canvas.restore();
+
+
+        canvas.save();
+        paint.setAlpha(255);
+        canvas.clipPath(path2);
         canvas.drawBitmap(bitmap, point2.x, point2.y, paint);
+        canvas.restore();
     }
 }
