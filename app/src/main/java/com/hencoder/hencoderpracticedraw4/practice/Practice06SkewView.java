@@ -15,8 +15,8 @@ import com.hencoder.hencoderpracticedraw4.R;
 public class Practice06SkewView extends View {
     Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     Bitmap bitmap;
-    Point point1 = new Point(200, 200);
-    Point point2 = new Point(600, 200);
+    Point point1 = new Point(100, 200);
+    Point point2 = new Point(700, 200);
 
     public Practice06SkewView(Context context) {
         super(context);
@@ -38,7 +38,33 @@ public class Practice06SkewView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
+        paint.setAlpha(100);
         canvas.drawBitmap(bitmap, point1.x, point1.y, paint);
+
+        paint.setAlpha(255);
+        canvas.save();
+        canvas.skew(0.0f, 0.5f);
+        canvas.drawBitmap(bitmap, point1.x, point1.y, paint);
+        canvas.restore();
+
+        canvas.save();
+        canvas.skew(0.0f, -0.5f);
+        canvas.drawBitmap(bitmap, point1.x, point1.y, paint);
+        canvas.restore();
+
+        paint.setAlpha(50);
         canvas.drawBitmap(bitmap, point2.x, point2.y, paint);
+
+        paint.setAlpha(200);
+        canvas.save();
+        canvas.skew(-0.5f, 0.0f);
+        canvas.drawBitmap(bitmap, point2.x, point2.y, paint);
+        canvas.restore();
+
+        paint.setAlpha(255);
+        canvas.save();
+        canvas.skew(0.5f, 0.0f);
+        canvas.drawBitmap(bitmap, point2.x, point2.y, paint);
+        canvas.restore();
     }
 }
