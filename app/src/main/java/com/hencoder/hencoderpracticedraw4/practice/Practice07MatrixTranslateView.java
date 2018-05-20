@@ -39,13 +39,13 @@ public class Practice07MatrixTranslateView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-//        paint.setAlpha(100);
-//        canvas.drawBitmap(bitmap, point1.x, point1.y, paint);
+        paint.setAlpha(100);
+        canvas.drawBitmap(bitmap, point1.x, point1.y, paint);
 
-//        paint.setAlpha(255);
+        paint.setAlpha(255);
         Matrix matrix = new Matrix();
-        matrix.preTranslate(-100, -100);
-//        matrix.postRotate(45, point1.x + bitmap.getWidth() / 2, point1.y + bitmap.getHeight() / 2);
+        matrix.postTranslate(-100, -100);
+        matrix.postRotate(45, point1.x + bitmap.getWidth() / 2, point1.y + bitmap.getHeight() / 2);
 
         canvas.save();
         canvas.concat(matrix);
